@@ -1,17 +1,26 @@
 import org.junit.Test;
 
 public class MainTest
-    {
-        @Test
-        public void myFirstTest()
-        {
-            int a = 10;
-            int b = 15;
+{
+    int a = 5;
+    int b = 11;
 
-            if(a > b) {
-                System.out.println("This will never happen");
-            } else {
-                System.out.println("This is what will happen");
+
+    @Test
+    public void myFirstTest()
+    {
+        int a = this.giveMeInt();
+
+        if(a > b) {
+            System.out.println("False");
+        } else {
+            System.out.println("True");
         }
     }
+
+    public int giveMeInt()
+    {
+        return 5;
+    }
 }
+
