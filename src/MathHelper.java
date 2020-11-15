@@ -1,9 +1,10 @@
 public class MathHelper
 {
-    public int simple_int = 7;
-    public static int static_int = 7;
+//    identificator final allow you do not change initial value
+    final public int simple_int = 7;
+    final public static int static_int = 7;
 
-    //    we can use static fields in no static method
+//    we can use static fields in no static method
     public void changeSimpleInt()
     {
         static_int = 8;
