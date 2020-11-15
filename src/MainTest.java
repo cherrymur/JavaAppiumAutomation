@@ -4,7 +4,6 @@ public class MainTest extends CoreTestCase
 {
     public void typeStartMessage()
     {
-        super.typeStartMessage();
         System.out.println("Current class is MainTest");
     }
 
