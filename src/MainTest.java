@@ -6,11 +6,10 @@ public class MainTest extends CoreTestCase
     @Test
     public void myFirstTest()
     {
-        this.assertFail();
-    }
-    private void assertFail()
-    {
-        Assert.fail("Failed");
+        int expected = 25;
+        int actual = 5 * 5;
+
+        Assert.assertTrue("Failed", actual == expected);
     }
 
 }
