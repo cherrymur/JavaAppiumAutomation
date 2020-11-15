@@ -10,7 +10,7 @@ public class MathHelper
         } else if (action == '*') {
             return this.multiply(a, b);
         } else {
-            return typeAnErrorAndReturnDefaultValue("Wrong action: " + action);
+            return this.typeAnErrorAndReturnDefaultValue("Wrong action: " + action);
         }
     }
 
