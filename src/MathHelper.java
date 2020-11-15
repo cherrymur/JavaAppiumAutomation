@@ -3,6 +3,18 @@ public class MathHelper
     public int simple_int = 7;
     public static int static_int = 7;
 
+    //    we can use static fields in no static method
+    public void changeSimpleInt()
+    {
+        static_int = 8;
+    }
+
+//    we can't use no static fields in static method
+    public static void changeSimpleIntByStaticFunction()
+    {
+        this.simple_int = 8;
+    }
+
     public int calc(int a, int b, char action) {
         if (action == '+') {
             return this.plus(a, b);
