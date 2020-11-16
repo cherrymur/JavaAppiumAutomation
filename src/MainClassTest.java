@@ -4,8 +4,9 @@ import org.junit.Test;
 public class MainClassTest extends MainClass
 {
     @Test
-    public void testGetClassNumber()
+    public void testGetClassString()
     {
-        Assert.assertTrue("getClassNumber method don't return a number more than 45", this.getClassNumber() > 45);
+        Assert.assertTrue("getClassString method don't return a string with 'hello' or 'Hello'",
+                this.getClassString().toLowerCase().contains("hello"));
     }
 }
