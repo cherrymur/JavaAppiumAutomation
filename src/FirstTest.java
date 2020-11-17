@@ -42,17 +42,16 @@ public class FirstTest {
     }
 
     @Test
-    public void firstTest() throws InterruptedException {
-        WebElement element_search = waitForElementPresentByXpath(
+    public void firstTest() {
+        WebElement element_search;
+        element_search = waitForElementPresentByXpath(
                 "//*[contains(@text, 'Search Wikipedia')]",
-                "Cannot find search input",
-                1);
+                "Cannot find search input");
         element_search.click();
 
         WebElement element_enter_search = waitForElementPresentByXpath(
                 "//*[contains(@text, 'Search Wikipedia')]",
-                "Cannot find search input",
-                1);
+                "Cannot find search input");
         element_enter_search.sendKeys("Airport");
     }
 
@@ -64,5 +63,10 @@ public class FirstTest {
         return wait.until(
                 ExpectedConditions.presenceOfElementLocated(by)
         );
+    }
+
+    private WebElement waitForElementPresentByXpath(String xpath, String error_message)
+    {
+        return waitForElementPresentByXpath(xpath, error_message, 5);
     }
 }
