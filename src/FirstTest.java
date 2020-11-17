@@ -1,6 +1,5 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import org.apache.xpath.operations.And;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
