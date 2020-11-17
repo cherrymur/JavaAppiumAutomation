@@ -39,9 +39,8 @@ public class FirstTest {
     }
 
     @Test
-    public void firstTest() throws InterruptedException {
+    public void firstTest(){
         WebElement element_search = driver.findElementByXPath("//*[contains(@text, 'Search Wikipedia')]");
         element_search.click();
-//        System.out.println("First test run");
     }
 }
