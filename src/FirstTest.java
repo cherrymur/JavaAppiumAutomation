@@ -32,15 +32,18 @@ public class FirstTest {
         Thread.sleep(1000);
     }
 
-    @After
-    public void tearDown()
-    {
-        driver.quit();
-    }
+//    @After
+//    public void tearDown()
+//    {
+//        driver.quit();
+//    }
 
     @Test
     public void firstTest(){
         WebElement element_search = driver.findElementByXPath("//*[contains(@text, 'Search Wikipedia')]");
         element_search.click();
+
+        WebElement element_enter_search = driver.findElementByXPath("//*[contains(@text, 'Search...')]");
+        element_enter_search.sendKeys("Airport");
     }
 }
