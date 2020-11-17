@@ -26,6 +26,10 @@ public class FirstTest {
                 "JavaAppiumAutomatiom\\apks\\org.wikipedia.apk");
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+
+        WebElement element = driver.findElementByXPath("//*[contains(@text, 'SKIP')]");
+        element.click();
+        Thread.sleep(1000);
     }
 
     @After
@@ -35,10 +39,9 @@ public class FirstTest {
     }
 
     @Test
-    public void firstTest()
-    {
-        WebElement element = driver.findElementByXPath("//*[contains(@text, 'We’ve found the following on your device:')]");
-//        element.click();
+    public void firstTest() throws InterruptedException {
+        WebElement element_search = driver.findElementByXPath("//*[contains(@text, 'Search Wikipedia')]");
+        element_search.click();
 //        System.out.println("First test run");
     }
 }
