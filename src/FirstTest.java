@@ -1,10 +1,8 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -31,8 +29,10 @@ public class FirstTest {
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
-        WebElement element = driver.findElementByXPath("//*[contains(@text, 'SKIP')]");
-        element.click();
+        waitForElementByXpathAndClick(
+                "//*[contains(@text, 'SKIP')]",
+                "Cannot find Skip element",
+                5);
     }
 
 //    @After
@@ -43,21 +43,23 @@ public class FirstTest {
 
     @Test
     public void firstTest() {
-        WebElement element_search;
-        element_search = waitForElementPresentByXpath(
+        waitForElementByXpathAndClick(
                 "//*[contains(@text, 'Search Wikipedia')]",
-                "Cannot find search input");
-        element_search.click();
+                "Cannot find search field",
+                5
+        );
 
-        WebElement element_enter_search = waitForElementPresentByXpath(
+        waitForElementByXpathAndSendKeys(
                 "//*[contains(@text, 'Search Wikipedia')]",
-                "Cannot find search input");
-        element_enter_search.sendKeys("Java");
+                "Java",
+                "Cannot find search field",
+                5
+        );
 
         waitForElementPresentByXpath(
-                "//*[@resource-id='org.wikipedia:id/page_list_item_description' and @text='Object-oriented programming language']",
+                "//*[@resource-id='org.wikipedia:id/page_list_item_description'][@text='Object-oriented programming language']",
                 "Cannot find search input",
-                30);
+                15);
     }
 
     private WebElement waitForElementPresentByXpath(String xpath, String error_message, long timeoutInSeconds)
@@ -73,5 +75,19 @@ public class FirstTest {
     private WebElement waitForElementPresentByXpath(String xpath, String error_message)
     {
         return waitForElementPresentByXpath(xpath, error_message, 5);
+    }
+
+    private WebElement waitForElementByXpathAndClick(String xpath, String error_message, long timeoutInSeconds)
+    {
+        WebElement element = waitForElementPresentByXpath(xpath, error_message, timeoutInSeconds);
+        element.click();
+        return element;
+    }
+
+    private WebElement waitForElementByXpathAndSendKeys(String xpath, String value, String error_message, long timeoutInSeconds)
+    {
+        WebElement element = waitForElementPresentByXpath(xpath, error_message, timeoutInSeconds);
+        element.sendKeys(value);
+        return element;
     }
 }
