@@ -35,11 +35,11 @@ public class FirstTest {
         element.click();
     }
 
-    @After
-    public void tearDown()
-    {
-        driver.quit();
-    }
+//    @After
+//    public void tearDown()
+//    {
+//        driver.quit();
+//    }
 
     @Test
     public void firstTest() {
@@ -52,7 +52,12 @@ public class FirstTest {
         WebElement element_enter_search = waitForElementPresentByXpath(
                 "//*[contains(@text, 'Search Wikipedia')]",
                 "Cannot find search input");
-        element_enter_search.sendKeys("Airport");
+        element_enter_search.sendKeys("Java");
+
+        waitForElementPresentByXpath(
+                "//*[@resource-id='org.wikipedia:id/page_list_item_description' and @text='Object-oriented programming language']",
+                "Cannot find search input",
+                30);
     }
 
     private WebElement waitForElementPresentByXpath(String xpath, String error_message, long timeoutInSeconds)
