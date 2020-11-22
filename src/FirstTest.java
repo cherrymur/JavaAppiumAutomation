@@ -1,5 +1,6 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -42,68 +43,97 @@ public class FirstTest {
 //        driver.quit();
 //    }
 //
+//    @Test
+//    public void firstTest() {
+//        waitForElementAndClick(
+//                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+//                "Cannot find search field",
+//                5);
+//
+//        waitForElementAndSendKeys(
+//                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+//                "Java",
+//                "Cannot find search field",
+//                5);
+//
+//        waitForElementPresent(
+//                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_description']" +
+//                                "[@text='Object-oriented programming language']"),
+//                "Cannot find search input",
+//                15);
+//    }
+//
+//    @Test
+//    public void testCancelSearch() {
+//        waitForElementAndClick(
+//                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+//                "Cannot find search field",
+//                5);
+//
+//        waitForElementAndSendKeys(
+//                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+//                "Java",
+//                "Cannot find search field",
+//                5);
+//
+//        waitForElementAndClear(
+//                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+//                "Cannot find search field",
+//                5);
+//
+////        Caused by: org.openqa.selenium.InvalidSelectorException: Locator Strategy 'css selector' is not supported for this session
+////        waitForElementAndClick(
+////                By.id("org.wikipedia:id/search_close_btn"),
+////                "Cannot find X element to cancel search",
+////                7);
+//
+//        waitForElementAndClick(
+//                By.xpath("//*[@resource-id='org.wikipedia:id/search_close_btn']"),
+//                "Cannot find X element to cancel search",
+//                5);
+//
+//        waitForElementNotPresent(
+//                By.id("org.wikipedia:id/search_close_btn"),
+//                "X element is still on page",
+//                5);
+//    }
+
     @Test
-    public void firstTest() {
+    public void testCompareArticleTitle()
+    {
         waitForElementAndClick(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Cannot find search field",
-                5
-        );
+                5);
 
         waitForElementAndSendKeys(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Java",
                 "Cannot find search field",
-                5
-        );
+                5);
 
-        waitForElementPresent(
+        waitForElementAndClick(
                 By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_description']" +
-                                "[@text='Object-oriented programming language']"),
+                        "[@text='Object-oriented programming language']"),
                 "Cannot find search input",
                 15);
+
+        WebElement title_element = waitForElementPresent(
+                By.xpath("//*[@text='Java (programming language)']"),
+                "Cannot find an article title",
+                15);
+
+//        Error: org.openqa.selenium.UnsupportedCommandException: Method is not implemented
+        String article_title = title_element.getAttribute("text");
+
+//        String article_title = title_element.getText();
+
+        Assert.assertEquals(
+              "We see unexpected title",
+                "Java (programming language)",
+                article_title
+        );
     }
-
-    @Test
-    public void testCancelSearch() {
-        waitForElementAndClick(
-                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
-                "Cannot find search field",
-                5
-        );
-
-        waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
-                "Java",
-                "Cannot find search field",
-                5
-        );
-
-        waitForElementAndClear(
-                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
-                "Cannot find search field",
-                5
-        );
-
-//        Caused by: org.openqa.selenium.InvalidSelectorException: Locator Strategy 'css selector' is not supported for this session
-//        waitForElementAndClick(
-//                By.id("org.wikipedia:id/search_close_btn"),
-//                "Cannot find X element to cancel search",
-//                7
-//        );
-
-        waitForElementAndClick(
-                By.xpath("//*[@resource-id='org.wikipedia:id/search_close_btn']"),
-                "Cannot find X element to cancel search",
-                7
-        );
-
-        waitForElementNotPresent(
-                By.id("org.wikipedia:id/search_close_btn"),
-                "X element is still on page",
-                5
-        );
-}
 
     private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds)
     {
