@@ -74,7 +74,13 @@ public class FirstTest {
 
         waitForElementAndSendKeys(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
-                "J",
+                "Java",
+                "Cannot find search field",
+                5
+        );
+
+        waitForElementAndClear(
+                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Cannot find search field",
                 5
         );
@@ -134,5 +140,12 @@ public class FirstTest {
         return wait.until(
                 ExpectedConditions.invisibilityOfElementLocated(by)
         );
+    }
+
+    private WebElement waitForElementAndClear(By by, String error_message, long timeoutInSeconds)
+    {
+        WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
+        element.clear();
+        return element;
     }
 }
