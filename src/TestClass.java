@@ -113,4 +113,21 @@ public class TestClass {
 
         action.press(x, start_y).waitAction(timeOfSwipe).moveTo(x, end_y).release().perform();
     }
+
+    protected void swipeUpQuick () {
+        swipeUp(200);
+    }
+
+    protected void swipeUpToFindElement(By by, String error_message, int max_swipe){
+
+        int already_swipe = 0;
+        while (driver.findElements(by).size() == 0) {
+            if (already_swipe > max_swipe) {
+                waitForElementPresent(by, "Cannot find element by swiping uo. \n" + error_message, 0);
+                return;
+            }
+            swipeUpQuick();
+            ++already_swipe;
+        }
+    }
 }

@@ -14,25 +14,20 @@ public class SwipeArticleTest extends TestClass {
 
         this.waitForElementAndSendKeys(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
-                "Java",
+                "Appium",
                 "Cannot find search field",
                 5);
 
         this.waitForElementAndClick(
-                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_description']" +
-                        "[@text='Object-oriented programming language']"),
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_title']" +
+                        "[@text='Appium']"),
                 "Cannot find search input",
                 15);
 
-        this.swipeUp(2000);
-        this.swipeUp(2000);
-        this.swipeUp(2000);
-        this.swipeUp(2000);
-        this.swipeUp(2000);
-        this.swipeUp(2000);
-        this.swipeUp(2000);
-
-
-
+        this.swipeUpToFindElement(
+                By.xpath("//*[@text='View article in browser']"),
+                "Can't find final element",
+                20
+        );
     }
 }
