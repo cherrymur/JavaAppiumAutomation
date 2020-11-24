@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
+import java.util.List;
 
 public class FirstTest {
     private AppiumDriver driver;
@@ -124,10 +125,31 @@ public class FirstTest {
 //                "We see unexpected title"
 //        );
 //    }
+//
+//    @Test
+//    public void testSearchFieldContainsText() {
+//        waitForElementAndClick(
+//                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+//                "Cannot find search field",
+//                5);
+//
+//        waitForElementAndSendKeys(
+//                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+//                "Java",
+//                "Cannot find search field",
+//                5);
+//
+//        assertElementHasText(
+////                By.id("org.wikipedia:id/search_src_text"),
+//                By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.LinearLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.EditText\n"),
+//                "Java",
+//                "We see unexpected search word"
+//        );
+//    }
 
 
     @Test
-    public void testSearchFieldContainsText() {
+    public void SearchResultsFieldContainText() {
         waitForElementAndClick(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Cannot find search field",
@@ -139,14 +161,20 @@ public class FirstTest {
                 "Cannot find search field",
                 5);
 
-        assertElementHasText(
+        waitForElementsPresent(
+              By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.TextView[1]"),
+                "Can't find elements",
+                5);
+
+        assertElementsHaveText(
 //                By.id("org.wikipedia:id/search_src_text"),
                 By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.LinearLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.EditText\n"),
-                "Java",
+                "Java*",
                 "We see unexpected search word"
         );
     }
-        private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds)
+
+    private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds)
     {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
         wait.withMessage(error_message + "\n");
@@ -193,11 +221,27 @@ public class FirstTest {
     private void assertElementHasText(By by, String expected, String error_message)
     {
         WebElement title_element = waitForElementPresent(by, "Cannot find an element", 15);
-
-//        Error: org.openqa.selenium.UnsupportedCommandException: Method is not implemented
-//        String article_title = title_element.getAttribute("text");
-
         String article_title=title_element.getText();
         Assert.assertEquals(error_message, expected, article_title);
+    }
+
+    private List<WebElement> waitForElementsPresent(By by, String error_message, long timeoutInSeconds)
+    {
+        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+        wait.withMessage(error_message + "\n");
+        return wait.until(
+                ExpectedConditions.presenceOfAllElementsLocatedBy(by)
+        );
+    }
+
+    private void assertElementsHaveText(By by, String expected, String error_message)
+    {
+        List<WebElement> list_elements = waitForElementsPresent(by, "Cannot find elements", 15);
+
+        for (int i = 0; i < list_elements.size(); i = i+1) {
+            String article_title = list_elements.get(i).getText();
+            Assert.
+                (error_message, expected, article_title);
+        }
     }
 }
