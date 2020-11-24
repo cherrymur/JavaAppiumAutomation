@@ -118,20 +118,10 @@ public class FirstTest {
                 "Cannot find search input",
                 15);
 
-        WebElement title_element = waitForElementPresent(
-                By.xpath("//*[@text='Java (programming language)']"),
-                "Cannot find an article title",
-                15);
-
-//        Error: org.openqa.selenium.UnsupportedCommandException: Method is not implemented
-        String article_title = title_element.getAttribute("text");
-
-//        String article_title = title_element.getText();
-
-        Assert.assertEquals(
-              "We see unexpected title",
+        assertElementHasText(
+                By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[1]"),
                 "Java (programming language)",
-                article_title
+                "We see unexpected title"
         );
     }
 
@@ -177,5 +167,16 @@ public class FirstTest {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
         element.clear();
         return element;
+    }
+
+    private void assertElementHasText(By by, String expected, String error_message)
+    {
+        WebElement title_element = waitForElementPresent(by, "Cannot find an element", 15);
+
+//        Error: org.openqa.selenium.UnsupportedCommandException: Method is not implemented
+//        String article_title = title_element.getAttribute("text");
+
+        String article_title=title_element.getText();
+        Assert.assertEquals(error_message, expected, article_title);
     }
 }
