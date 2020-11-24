@@ -1,5 +1,6 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +17,7 @@ public class FirstTest {
     private AppiumDriver driver;
 
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         capabilities.setCapability("platformName", "Android");
@@ -146,10 +146,38 @@ public class FirstTest {
 //                "We see unexpected search word"
 //        );
 //    }
-
+//
+//    @Test
+//    public void testSearchResultsAndCancel() {
+//        waitForElementAndClick(
+//                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+//                "Cannot find search field",
+//                5);
+//
+//        waitForElementAndSendKeys(
+//                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+//                "Java",
+//                "Cannot find search field",
+//                5);
+//
+//        waitForElementPresent(
+//                By.xpath("//*[@resource-id='org.wikipedia:id/search_results_display']"),
+//                "There is no list with results",
+//                5);
+//
+//        waitForElementAndClear(
+//                By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.LinearLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.EditText"),
+//                "Cannot find search field",
+//                5);
+//
+//        waitForElementNotPresent(
+//                By.xpath("//*[@resource-id='org.wikipedia:id/search_results_display']"),
+//                "There is a list with results",
+//                5);
+//    }
 
     @Test
-    public void testSearchResultsAndCancel() {
+    public void testEachSearchResult() {
         waitForElementAndClick(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Cannot find search field",
@@ -166,19 +194,13 @@ public class FirstTest {
                 "There is no list with results",
                 5);
 
-        waitForElementAndClear(
-                By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.LinearLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.EditText"),
-                "Cannot find search field",
-                5);
+        assertElementsHaveText(
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_title']"),
+                "Java",
+                "JAVA is not in each element");
+        }
 
-        waitForElementNotPresent(
-                By.xpath("//*[@resource-id='org.wikipedia:id/search_results_display']"),
-                "There is a list with results",
-                5);
-    }
-
-    private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds)
-    {
+    private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
         wait.withMessage(error_message + "\n");
         return wait.until(
@@ -186,27 +208,23 @@ public class FirstTest {
         );
     }
 
-    private WebElement waitForElementPresent(By by, String error_message)
-    {
+    private WebElement waitForElementPresent(By by, String error_message) {
         return waitForElementPresent(by, error_message, 5);
     }
 
-    private WebElement waitForElementAndClick(By by, String error_message, long timeoutInSeconds)
-    {
+    private WebElement waitForElementAndClick(By by, String error_message, long timeoutInSeconds) {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
         element.click();
         return element;
     }
 
-    private WebElement waitForElementAndSendKeys(By by, String value, String error_message, long timeoutInSeconds)
-    {
+    private WebElement waitForElementAndSendKeys(By by, String value, String error_message, long timeoutInSeconds) {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
         element.sendKeys(value);
         return element;
     }
 
-    private boolean waitForElementNotPresent(By by, String error_message, long timeoutInSeconds)
-    {
+    private boolean waitForElementNotPresent(By by, String error_message, long timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
         wait.withMessage(error_message + "\n");
         return wait.until(
@@ -214,17 +232,32 @@ public class FirstTest {
         );
     }
 
-    private WebElement waitForElementAndClear(By by, String error_message, long timeoutInSeconds)
-    {
+    private WebElement waitForElementAndClear(By by, String error_message, long timeoutInSeconds) {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
         element.clear();
         return element;
     }
 
-    private void assertElementHasText(By by, String expected, String error_message)
-    {
+    private void assertElementHasText(By by, String expected, String error_message) {
         WebElement title_element = waitForElementPresent(by, "Cannot find an element", 15);
-        String article_title=title_element.getText();
+        String article_title = title_element.getText();
         Assert.assertEquals(error_message, expected, article_title);
+    }
+
+    private List<WebElement> waitForElementsPresent(By by, String error_message, long timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+        wait.withMessage(error_message + "\n");
+        return wait.until(
+                ExpectedConditions.presenceOfAllElementsLocatedBy(by)
+        );
+    }
+
+    private void assertElementsHaveText(By by, String expected, String error_message) {
+        List<WebElement> list_element = waitForElementsPresent(by, error_message, 5);
+
+        for (WebElement title_element : list_element) {
+            String article_title = title_element.getText();
+            Assert.assertThat(article_title, CoreMatchers.containsString(expected));
+        }
     }
 }
