@@ -149,7 +149,7 @@ public class FirstTest {
 
 
     @Test
-    public void SearchResultsFieldContainText() {
+    public void testSearchResultsAndCancel() {
         waitForElementAndClick(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Cannot find search field",
@@ -161,17 +161,20 @@ public class FirstTest {
                 "Cannot find search field",
                 5);
 
-        waitForElementsPresent(
-              By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.LinearLayout/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[1]/android.widget.TextView[1]"),
-                "Can't find elements",
+        waitForElementPresent(
+                By.xpath("//*[@resource-id='org.wikipedia:id/search_results_display']"),
+                "There is no list with results",
                 5);
 
-        assertElementsHaveText(
-//                By.id("org.wikipedia:id/search_src_text"),
-                By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.LinearLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.EditText\n"),
-                "Java*",
-                "We see unexpected search word"
-        );
+        waitForElementAndClear(
+                By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.LinearLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.EditText"),
+                "Cannot find search field",
+                5);
+
+        waitForElementNotPresent(
+                By.xpath("//*[@resource-id='org.wikipedia:id/search_results_display']"),
+                "There is a list with results",
+                5);
     }
 
     private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds)
@@ -223,25 +226,5 @@ public class FirstTest {
         WebElement title_element = waitForElementPresent(by, "Cannot find an element", 15);
         String article_title=title_element.getText();
         Assert.assertEquals(error_message, expected, article_title);
-    }
-
-    private List<WebElement> waitForElementsPresent(By by, String error_message, long timeoutInSeconds)
-    {
-        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
-        wait.withMessage(error_message + "\n");
-        return wait.until(
-                ExpectedConditions.presenceOfAllElementsLocatedBy(by)
-        );
-    }
-
-    private void assertElementsHaveText(By by, String expected, String error_message)
-    {
-        List<WebElement> list_elements = waitForElementsPresent(by, "Cannot find elements", 15);
-
-        for (int i = 0; i < list_elements.size(); i = i+1) {
-            String article_title = list_elements.get(i).getText();
-            Assert.
-                (error_message, expected, article_title);
-        }
     }
 }
