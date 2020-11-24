@@ -1,10 +1,10 @@
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-public class FirstTest extends TestClass {
+public class CancelSearchTest extends TestClass {
 
     @Test
-    public void firstTest() throws Exception {
+    public void testCancelSearch() throws Exception {
         this.setUp();
 
         this.waitForElementAndClick(
@@ -18,11 +18,15 @@ public class FirstTest extends TestClass {
                 "Cannot find search field",
                 5);
 
-        this.waitForElementPresent(
-                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_description']" +
-                        "[@text='Object-oriented programming language']"),
-                "Cannot find search input",
-                15);
+        this.waitForElementAndClick(
+                By.xpath("//*[@resource-id='org.wikipedia:id/search_close_btn']"),
+                "Cannot find X element to cancel search",
+                5);
+
+        this.waitForElementNotPresent(
+                By.id("org.wikipedia:id/search_close_btn"),
+                "X element is still on page",
+                5);
 
         this.tearDown();
     }
