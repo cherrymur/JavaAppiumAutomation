@@ -97,10 +97,37 @@ public class FirstTest {
 //                "X element is still on page",
 //                5);
 //    }
+//
+//    @Test
+//    public void testCompareArticleTitle()
+//    {
+//        waitForElementAndClick(
+//                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+//                "Cannot find search field",
+//                5);
+//
+//        waitForElementAndSendKeys(
+//                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+//                "Java",
+//                "Cannot find search field",
+//                5);
+//
+//        waitForElementAndClick(
+//                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_description']" +
+//                        "[@text='Object-oriented programming language']"),
+//                "Cannot find search input",
+//                15);
+//
+//        assertElementHasText(
+//                By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[1]"),
+//                "Java (programming language)",
+//                "We see unexpected title"
+//        );
+//    }
+
 
     @Test
-    public void testCompareArticleTitle()
-    {
+    public void testSearchFieldContainsText() {
         waitForElementAndClick(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Cannot find search field",
@@ -112,20 +139,14 @@ public class FirstTest {
                 "Cannot find search field",
                 5);
 
-        waitForElementAndClick(
-                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_description']" +
-                        "[@text='Object-oriented programming language']"),
-                "Cannot find search input",
-                15);
-
         assertElementHasText(
-                By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[1]"),
-                "Java (programming language)",
-                "We see unexpected title"
+//                By.id("org.wikipedia:id/search_src_text"),
+                By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.widget.LinearLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.EditText\n"),
+                "Java",
+                "We see unexpected search word"
         );
     }
-
-    private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds)
+        private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds)
     {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
         wait.withMessage(error_message + "\n");
