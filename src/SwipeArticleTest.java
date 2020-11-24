@@ -24,13 +24,13 @@ public class SwipeArticleTest extends TestClass {
                 "Cannot find search input",
                 15);
 
-        this.swipeUp(20);
-        this.swipeUp(20);
-        this.swipeUp(20);
-        this.swipeUp(20);
-        this.swipeUp(20);
-        this.swipeUp(20);
-        this.swipeUp(20);
+        this.swipeUp(2000);
+        this.swipeUp(2000);
+        this.swipeUp(2000);
+        this.swipeUp(2000);
+        this.swipeUp(2000);
+        this.swipeUp(2000);
+        this.swipeUp(2000);
 
 
 
