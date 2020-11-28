@@ -130,4 +130,21 @@ public class TestClass {
             ++already_swipe;
         }
     }
+
+    protected void swipeToTheLeftElement(By by, String error_message){
+       WebElement element = waitForElementPresent(by, "Cannot find element by swipe the element. \n"
+               + error_message, 5);
+       int left_x = element.getLocation().getX();
+       int right_x = left_x + element.getSize().getWidth();
+       int upper_y = element.getLocation().getY();
+       int lower_y = upper_y + element.getSize().getHeight();
+       int middle_y = (upper_y + lower_y)/2;
+
+        TouchAction action = new TouchAction(driver);
+        action.press(right_x, middle_y)
+               .waitAction(300)
+               .moveTo(left_x, middle_y)
+               .release()
+               .perform();
+    }
 }
