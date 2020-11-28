@@ -1,7 +1,7 @@
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-public class SearchFieldContainsTextTest extends TestClass {
+public class testSearchFieldContainsText extends TestClass {
 
     @Test
     public void testSearchFieldContainsText() throws Exception {

@@ -1,10 +1,10 @@
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-public class EachSearchResultTest extends TestClass {
+public class testFirst extends TestClass {
 
     @Test
-    public void testEachSearchResult() throws Exception {
+    public void firstTest() throws Exception {
         this.setUp();
 
         this.waitForElementAndClick(
@@ -19,14 +19,10 @@ public class EachSearchResultTest extends TestClass {
                 5);
 
         this.waitForElementPresent(
-                By.xpath("//*[@resource-id='org.wikipedia:id/search_results_display']"),
-                "There is no list with results",
-                5);
-
-        this.assertElementsHaveText(
-                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_title']"),
-                "Java",
-                "JAVA is not in each element");
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_description']" +
+                        "[@text='Object-oriented programming language']"),
+                "Cannot find search input",
+                15);
 
         this.tearDown();
     }

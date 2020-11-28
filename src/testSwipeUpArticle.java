@@ -1,7 +1,7 @@
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-public class SwipeArticleTest extends TestClass {
+public class testSwipeUpArticle extends TestClass {
 
     @Test
     public void testSwipeArticleTitle() throws Exception {

@@ -1,7 +1,7 @@
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-public class CompareArticleTitleTest extends TestClass {
+public class testCompareArticleTitleContainText extends TestClass {
 
     @Test
     public void testCompareArticleTitle() throws Exception {

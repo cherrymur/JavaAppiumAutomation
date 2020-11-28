@@ -1,7 +1,7 @@
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-public class CancelSearchTest extends TestClass {
+public class testCancelSearch extends TestClass {
 
     @Test
     public void testCancelSearch() throws Exception {

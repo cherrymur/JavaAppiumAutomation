@@ -33,6 +33,7 @@ public class testAmountOfNotEmptySearch extends TestClass {
                 "We found too few results",
                 amount_of_search_results > 0
         );
+
         this.tearDown();
     }
 }

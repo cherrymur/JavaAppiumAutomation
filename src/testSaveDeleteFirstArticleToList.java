@@ -1,7 +1,7 @@
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-public class saveDeleteFirstArticleToListTest extends TestClass {
+public class testSaveDeleteFirstArticleToList extends TestClass {
 
     @Test
     public void testSwipeArticleTitle() throws Exception {
