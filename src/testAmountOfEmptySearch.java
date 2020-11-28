@@ -34,6 +34,6 @@ public class testAmountOfEmptySearch extends TestClass {
                 "We've find some results by the request '" + name_of_article + "'"
         );
 
-//        this.tearDown();
+        this.tearDown();
     }
 }
