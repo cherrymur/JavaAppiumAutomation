@@ -5,6 +5,7 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -160,5 +161,21 @@ public class TestClass {
             String default_message = "An element '" + by.toString() + "' supposed to be not present";
             throw new AssertionError(default_message + " " + error_message);
         }
+    }
+
+    public String waitForElementAndGetAttribute(By by, String attribute, String error_message, long timeoutInSeconds)
+    {
+        WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
+        return element.getAttribute(attribute);
+    }
+
+    protected void RotateLandscape()
+    {
+        driver.rotate(ScreenOrientation.LANDSCAPE);
+    }
+
+    protected void RotatePORTRAIT()
+    {
+        driver.rotate(ScreenOrientation.PORTRAIT);
     }
 }
