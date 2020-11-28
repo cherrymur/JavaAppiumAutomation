@@ -29,5 +29,7 @@ public class CompareArticleTitleTest extends TestClass {
                 "Java (programming language)",
                 "We see unexpected title"
         );
+
+        this.tearDown();
     }
 }

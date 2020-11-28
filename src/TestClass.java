@@ -147,4 +147,10 @@ public class TestClass {
                .release()
                .perform();
     }
+
+    public int getAmountOfElements(By by)
+    {
+        List elements = driver.findElements(by);
+        return elements.size();
+    }
 }

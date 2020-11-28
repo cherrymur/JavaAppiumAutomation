@@ -32,5 +32,7 @@ public class SearchResultsAndCancelTest extends TestClass {
                 By.xpath("//*[@resource-id='org.wikipedia:id/search_results_display']"),
                 "There is a list with results",
                 5);
+
+        this.tearDown();
     }
 }

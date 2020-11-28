@@ -27,5 +27,7 @@ public class EachSearchResultTest extends TestClass {
                 By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_title']"),
                 "Java",
                 "JAVA is not in each element");
+
+        this.tearDown();
     }
 }

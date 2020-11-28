@@ -82,9 +82,9 @@ public class saveDeleteFirstArticleToListTest extends TestClass {
        this.waitForElementNotPresent(
                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_title']" +
                        "[@text='" + name_of_article + "']"),
-               "There is the article '" + name_of_article + "' in list",
+               "There is the article 'Appium' in list",
                5);
 
-
+        this.tearDown();
     }
 }

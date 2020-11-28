@@ -29,5 +29,7 @@ public class SwipeArticleTest extends TestClass {
                 "Can't find final element",
                 20
         );
+
+        this.tearDown();
     }
 }
