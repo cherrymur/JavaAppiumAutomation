@@ -8,6 +8,7 @@ public class testSaveTwoArticlesDeleteOneOfThem extends TestClass {
     public void saveTwoArticlesDeleteOneOfThemTest() throws Exception {
         this.setUp();
 
+
         this.waitForElementAndClick(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Cannot find search field",

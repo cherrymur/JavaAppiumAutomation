@@ -8,6 +8,11 @@ public class testChangeScreenOrientationOnSearchResults extends TestClass {
     public void ChangeScreenOrientationOnSearchResultsTest() throws Exception {
         this.setUp();
 
+        this.RotateResetBeforeTest(
+                By.xpath("//*[@resource-id='org.wikipedia:id/view_card_header_title']" +
+                        "[@text='Featured article']")
+        );
+
         this.waitForElementAndClick(
                 By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
                 "Cannot find search field",
@@ -38,6 +43,7 @@ public class testChangeScreenOrientationOnSearchResults extends TestClass {
                 30);
 
         this.RotateLandscape();
+
 
         String title_after_landscape_rotation = this.waitForElementAndGetAttribute(
                 By.id("org.wikipedia:id/view_page_title_text"),

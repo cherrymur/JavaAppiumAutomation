@@ -3,10 +3,7 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.ScreenOrientation;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -143,7 +140,7 @@ public class TestClass {
                .perform();
     }
 
-    public int getAmountOfElements(By by)
+    protected int getAmountOfElements(By by)
     {
         List elements = driver.findElements(by);
         return elements.size();
@@ -157,23 +154,23 @@ public class TestClass {
         }
     }
 
-    public String waitForElementAndGetAttribute(By by, String attribute, String error_message, long timeoutInSeconds)
+    protected String waitForElementAndGetAttribute(By by, String attribute, String error_message, long timeoutInSeconds)
     {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
         return element.getAttribute(attribute);
     }
 
-    public void RotateLandscape()
+    protected void RotateLandscape()
     {
         driver.rotate(ScreenOrientation.LANDSCAPE);
     }
 
-    public void RotatePORTRAIT()
+    protected void RotatePORTRAIT()
     {
         driver.rotate(ScreenOrientation.PORTRAIT);
     }
 
-    public void runAppInBackground()
+    protected void runAppInBackground()
     {
         driver.runAppInBackground(20);
     }
@@ -186,4 +183,12 @@ public class TestClass {
         );
     }
 
+    protected boolean IsNotPresent(By by) {
+        return getAmountOfElements(by) == 0;
+    }
+    protected void RotateResetBeforeTest(By by){
+        if (IsNotPresent(by)){
+            RotatePORTRAIT();
+        }
+    }
 }
