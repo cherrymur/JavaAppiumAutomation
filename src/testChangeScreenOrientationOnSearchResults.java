@@ -16,53 +16,54 @@ public class testChangeScreenOrientationOnSearchResults extends TestClass {
         String name_of_article = "Java";
 
         this.waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                By.xpath("//*[contains(@text, 'Search…')]"),
                 name_of_article,
                 "Cannot find search field",
                 5);
 
         String article_description = "Object-oriented programming language";
+
         this.waitForElementAndClick(
                 By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_description']" +
                         "[@text='" + article_description + "']"),
                 "Cannot find '" + article_description + "' topic searching by " + name_of_article,
-                15);
+                30);
 
         String title_before_landscape_rotation;
-        title_before_landscape_rotation = waitForElementAndGetAttribute(
-                By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[1]"),
+
+        title_before_landscape_rotation = this.waitForElementAndGetAttribute(
+                By.id("org.wikipedia:id/view_page_title_text"),
                 "text",
                 "Cannot find title of article",
-                15);
+                30);
 
         this.RotateLandscape();
 
-        String title_after_landscape_rotation = waitForElementAndGetAttribute(
-                By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[1]"),
+        String title_after_landscape_rotation = this.waitForElementAndGetAttribute(
+                By.id("org.wikipedia:id/view_page_title_text"),
                 "text",
                 "Cannot find title of article",
-                15);
+                30);
 
         Assert.assertEquals(
-                "Article title have been chahged after screen rotation",
+                "Article title have been changed after landscape screen rotation",
                 title_before_landscape_rotation,
                 title_after_landscape_rotation
         );
 
         this.RotatePORTRAIT();
 
-
-        String title_after_portrait_rotation = waitForElementAndGetAttribute(
-                By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[1]"),
+        String title_after_portrait_rotation = this.waitForElementAndGetAttribute(
+                By.id("org.wikipedia:id/view_page_title_text"),
                 "text",
                 "Cannot find title of article",
-                15);
+                30);
 
         Assert.assertEquals(
-                "Article title have been chahged after screen rotation",
+                "Article title have been changed after portrait screen rotation",
                 title_before_landscape_rotation,
                 title_after_portrait_rotation);
 
-//        this.tearDown();
+        this.tearDown();
     }
 }
