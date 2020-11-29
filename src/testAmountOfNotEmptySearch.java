@@ -16,7 +16,7 @@ public class testAmountOfNotEmptySearch extends TestClass {
         String name_of_article = "Appium";
 
         this.waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                By.xpath("//*[contains(@text, 'Search…')]"),
                 name_of_article,
                 "Cannot find search field",
                 5);

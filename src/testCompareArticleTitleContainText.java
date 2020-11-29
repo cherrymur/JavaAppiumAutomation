@@ -13,7 +13,7 @@ public class testCompareArticleTitleContainText extends TestClass {
                 5);
 
         this.waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                By.xpath("//*[contains(@text, 'Search…')]"),
                 "Java",
                 "Cannot find search field",
                 5);
@@ -25,7 +25,7 @@ public class testCompareArticleTitleContainText extends TestClass {
                 15);
 
         this.assertElementHasText(
-                By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[1]"),
+                By.id("org.wikipedia:id/view_page_title_text"),
                 "Java (programming language)",
                 "We see unexpected title"
         );

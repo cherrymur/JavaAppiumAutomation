@@ -31,12 +31,6 @@ public class TestClass {
                 "JavaAppiumAutomatiom\\apks\\org.wikipedia.apk");
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-
-//        for skipping first page
-        waitForElementAndClick(
-                By.xpath("//*[contains(@text, 'SKIP')]"),
-                "Cannot find Skip element",
-                5);
     }
 
     public void tearDown()
@@ -169,13 +163,18 @@ public class TestClass {
         return element.getAttribute(attribute);
     }
 
-    protected void RotateLandscape()
+    public void RotateLandscape()
     {
         driver.rotate(ScreenOrientation.LANDSCAPE);
     }
 
-    protected void RotatePORTRAIT()
+    public void RotatePORTRAIT()
     {
         driver.rotate(ScreenOrientation.PORTRAIT);
+    }
+
+    public void runAppInBackground()
+    {
+        driver.runAppInBackground(20);
     }
 }

@@ -13,7 +13,7 @@ public class testSaveDeleteFirstArticleToList extends TestClass {
                 5);
 
         this.waitForElementAndSendKeys(
-                By.xpath("//*[contains(@text, 'Search Wikipedia')]"),
+                By.xpath("//*[contains(@text, 'Search…')]"),
                 "Appium",
                 "Cannot find search field",
                 5);
