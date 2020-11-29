@@ -131,9 +131,9 @@ public class testSaveTwoArticlesDeleteOneOfThem extends TestClass {
                5);
 
        this.assertElementHasText(
-       By.id("org.wikipedia:id/view_page_title_text"),
-       name_of_second_article,
-       "The article '" + name_of_second_article + "' is not opened");
+               By.id("org.wikipedia:id/view_page_title_text"),
+               name_of_second_article,
+               "The article '" + name_of_second_article + "' is not opened");
 
         this.tearDown();
     }

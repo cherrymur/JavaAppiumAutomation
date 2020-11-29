@@ -177,4 +177,13 @@ public class TestClass {
     {
         driver.runAppInBackground(20);
     }
+
+    protected WebElement assertElementPresent(By by, String error_message) {
+        WebDriverWait wait = new WebDriverWait(driver, 0);
+        wait.withMessage(error_message + "\n");
+        return wait.until(
+                ExpectedConditions.presenceOfElementLocated(by)
+        );
+    }
+
 }
