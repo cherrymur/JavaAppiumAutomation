@@ -1,7 +1,7 @@
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-public class testEachSearchResultContainText extends TestClass {
+public class testEachSearchResultContainText {
 
     @Test
     public void testEachSearchResult() throws Exception {

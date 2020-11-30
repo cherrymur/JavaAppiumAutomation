@@ -1,8 +1,7 @@
-import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-public class testChangeSearchArticleInBackround extends TestClass {
+public class testChangeSearchArticleInBackround {
 
     @Test
     public void ChangeSearchArticleInBackroundTest() throws Exception {

@@ -2,7 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-public class testSaveTwoArticlesDeleteOneOfThem extends TestClass {
+public class testSaveTwoArticlesDeleteOneOfThem {
 
     @Test
     public void saveTwoArticlesDeleteOneOfThemTest() throws Exception {

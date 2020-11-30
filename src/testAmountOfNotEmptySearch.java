@@ -2,7 +2,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-public class testAmountOfNotEmptySearch extends TestClass {
+public class testAmountOfNotEmptySearch {
 
     @Test
     public void testSwipeArticleTitle() throws Exception {

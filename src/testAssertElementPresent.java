@@ -1,8 +1,7 @@
-import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-public class testAssertElementPresent extends TestClass {
+public class testAssertElementPresent {
 
     @Test
     public void AssertElementPresentTest() throws Exception {

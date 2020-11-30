@@ -1,18 +1,27 @@
+package lib.ui;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
-import org.openqa.selenium.*;
-import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.ScreenOrientation;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.net.URL;
 import java.util.List;
 
-public class TestClass {
-    WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds) {
+public class MainPageObject {
+    protected AppiumDriver driver;
+
+    public MainPageObject(AppiumDriver driver)
+    {
+        this.driver = driver;
+    }
+
+    public WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
         wait.withMessage(error_message + "\n");
         return wait.until(
@@ -20,23 +29,23 @@ public class TestClass {
         );
     }
 
-    WebElement waitForElementPresent(By by, String error_message) {
+    public WebElement waitForElementPresent(By by, String error_message) {
         return waitForElementPresent(by, error_message, 5);
     }
 
-    WebElement waitForElementAndClick(By by, String error_message, long timeoutInSeconds) {
+    public WebElement waitForElementAndClick(By by, String error_message, long timeoutInSeconds) {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
         element.click();
         return element;
     }
 
-    WebElement waitForElementAndSendKeys(By by, String value, String error_message, long timeoutInSeconds) {
+    public WebElement waitForElementAndSendKeys(By by, String value, String error_message, long timeoutInSeconds) {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
         element.sendKeys(value);
         return element;
     }
 
-    boolean waitForElementNotPresent(By by, String error_message, long timeoutInSeconds) {
+    public boolean waitForElementNotPresent(By by, String error_message, long timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
         wait.withMessage(error_message + "\n");
         return wait.until(
@@ -44,19 +53,19 @@ public class TestClass {
         );
     }
 
-    protected WebElement waitForElementAndClear(By by, String error_message, long timeoutInSeconds) {
+    public WebElement waitForElementAndClear(By by, String error_message, long timeoutInSeconds) {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
         element.clear();
         return element;
     }
 
-    void assertElementHasText(By by, String expected, String error_message) {
+    public void assertElementHasText(By by, String expected, String error_message) {
         WebElement title_element = waitForElementPresent(by, "Cannot find an element", 15);
         String article_title = title_element.getText();
         Assert.assertEquals(error_message, expected, article_title);
     }
 
-    private List<WebElement> waitForElementsPresent(By by, String error_message, long timeoutInSeconds) {
+    public List<WebElement> waitForElementsPresent(By by, String error_message, long timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
         wait.withMessage(error_message + "\n");
         return wait.until(
@@ -64,7 +73,7 @@ public class TestClass {
         );
     }
 
-    void assertElementsHaveText(By by, String expected, String error_message) {
+    public void assertElementsHaveText(By by, String expected, String error_message) {
         List<WebElement> list_element = waitForElementsPresent(by, error_message, 5);
 
         for (WebElement title_element : list_element) {
@@ -73,7 +82,7 @@ public class TestClass {
         }
     }
 
-    protected void swipeUp (int timeOfSwipe) {
+    public void swipeUp (int timeOfSwipe) {
         TouchAction action = new TouchAction(driver);
         Dimension size = driver.manage().window().getSize();
         int x = size.width/2;
@@ -83,11 +92,11 @@ public class TestClass {
         action.press(x, start_y).waitAction(timeOfSwipe).moveTo(x, end_y).release().perform();
     }
 
-    protected void swipeUpQuick () {
+    public void swipeUpQuick () {
         swipeUp(200);
     }
 
-    protected void swipeUpToFindElement(By by, String error_message, int max_swipe){
+    public void swipeUpToFindElement(By by, String error_message, int max_swipe){
 
         int already_swipe = 0;
         while (driver.findElements(by).size() == 0) {
@@ -100,30 +109,30 @@ public class TestClass {
         }
     }
 
-    protected void swipeToTheLeftElement(By by, String error_message){
-       WebElement element = waitForElementPresent(by, "Cannot find element by swipe the element. \n"
-               + error_message, 5);
-       int left_x = element.getLocation().getX();
-       int right_x = left_x + element.getSize().getWidth();
-       int upper_y = element.getLocation().getY();
-       int lower_y = upper_y + element.getSize().getHeight();
-       int middle_y = (upper_y + lower_y)/2;
+    public void swipeToTheLeftElement(By by, String error_message){
+        WebElement element = waitForElementPresent(by, "Cannot find element by swipe the element. \n"
+                + error_message, 5);
+        int left_x = element.getLocation().getX();
+        int right_x = left_x + element.getSize().getWidth();
+        int upper_y = element.getLocation().getY();
+        int lower_y = upper_y + element.getSize().getHeight();
+        int middle_y = (upper_y + lower_y)/2;
 
         TouchAction action = new TouchAction(driver);
         action.press(right_x, middle_y)
-               .waitAction(400)
-               .moveTo(left_x, middle_y)
-               .release()
-               .perform();
+                .waitAction(400)
+                .moveTo(left_x, middle_y)
+                .release()
+                .perform();
     }
 
-    protected int getAmountOfElements(By by)
+    public int getAmountOfElements(By by)
     {
         List elements = driver.findElements(by);
         return elements.size();
     }
 
-    protected void assertElementNotPresent(By by, String error_message) {
+    public void assertElementNotPresent(By by, String error_message) {
         int amount_of_elements = getAmountOfElements(by);
         if (amount_of_elements > 0) {
             String default_message = "An element '" + by.toString() + "' supposed to be not present";
@@ -131,28 +140,28 @@ public class TestClass {
         }
     }
 
-    protected String waitForElementAndGetAttribute(By by, String attribute, String error_message, long timeoutInSeconds)
+    public String waitForElementAndGetAttribute(By by, String attribute, String error_message, long timeoutInSeconds)
     {
         WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
         return element.getAttribute(attribute);
     }
 
-    protected void RotateLandscape()
+    public void RotateLandscape()
     {
         driver.rotate(ScreenOrientation.LANDSCAPE);
     }
 
-    protected void RotatePORTRAIT()
+    public void RotatePORTRAIT()
     {
         driver.rotate(ScreenOrientation.PORTRAIT);
     }
 
-    protected void runAppInBackground()
+    public void runAppInBackground()
     {
         driver.runAppInBackground(20);
     }
 
-    protected WebElement assertElementPresent(By by, String error_message) {
+    public WebElement assertElementPresent(By by, String error_message) {
         WebDriverWait wait = new WebDriverWait(driver, 0);
         wait.withMessage(error_message + "\n");
         return wait.until(
@@ -160,10 +169,10 @@ public class TestClass {
         );
     }
 
-    protected boolean IsNotPresent(By by) {
+    public boolean IsNotPresent(By by) {
         return getAmountOfElements(by) == 0;
     }
-    protected void RotateResetBeforeTest(By by){
+    public void RotateResetBeforeTest(By by){
         if (IsNotPresent(by)){
             RotatePORTRAIT();
         }
