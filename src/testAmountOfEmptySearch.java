@@ -1,8 +1,9 @@
+import lib.CoreTestsCase;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-public class testAmountOfEmptySearch extends TestClass {
+public class testAmountOfEmptySearch extends CoreTestsCase {
 
     @Test
     public void testSwipeArticleTitle() throws Exception {
