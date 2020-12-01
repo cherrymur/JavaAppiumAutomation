@@ -1,7 +1,8 @@
 import lib.CoreTestsCase;
-import lib.ui.MainPageObject;
-import lib.ui.SearchPageObject;
+import lib.ui.*;
+import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
 import org.openqa.selenium.By;
 
 public class FirstTest extends CoreTestsCase {
@@ -35,6 +36,66 @@ public class FirstTest extends CoreTestsCase {
         SearchPageObject.clickCancelSearch();
         SearchPageObject.waitForCancelButtonToDisappear();
     }
+
+    @Test
+    public void testCompareArticleTitle()
+    {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.clickByArticleWithSubstring("Objected-oriented programming language");
+
+        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
+        String article_title = ArticlePageObject.getArticleTitle();
+
+        Assert.assertEquals(
+                "We see unexpected title!",
+                "Java (programming language)",
+                article_title
+        );
+    }
+
+    @Test
+    public void testSwipeArticle()
+    {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Appium");
+        SearchPageObject.clickByArticleWithSubstring("Appium");
+
+        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
+        ArticlePageObject.waitForTitleElement();
+        ArticlePageObject.swipeToFooter();
+    }
+
+    @Test
+    public void testSaveFirstArticleToMyList()
+    {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Appium");
+        SearchPageObject.clickByArticleWithSubstring("Appium");
+
+        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
+        ArticlePageObject.waitForTitleElement();
+
+        String article_title = ArticlePageObject.getArticleTitle();
+        String name_of_folder = "My list";
+
+        ArticlePageObject.addArticleToMyList(name_of_folder);
+        ArticlePageObject.closeArticle();
+
+        NavigationUI NavigationUI = new NavigationUI(driver);
+        NavigationUI.OpenMyLists();
+
+        MyListsPageObject MyListsPageObject = new MyListsPageObject(driver);
+        MyListsPageObject.openFolderByName(name_of_folder);
+        MyListsPageObject.swipeByArticleToDelete(article_title);
+    }
+
     protected void tearDown throws Exception
     {
         super.tearDown();
