@@ -77,4 +77,5 @@ public class ArticlePageObject extends MainPageObject {
                 "We have a trouble to find the 'X' element",
                 5);
     }
+
 }

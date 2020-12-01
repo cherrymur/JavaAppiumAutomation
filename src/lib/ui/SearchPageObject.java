@@ -10,7 +10,8 @@ public class SearchPageObject extends MainPageObject {
             SEARCH_INPUT = "//*[contains(@text, 'Search…')]",
             SEARCH_CANCEL_BUTTON = "org.wikipedia:id/search_close_btn",
             SEARCH_RESULT = "//*[@resource-id='org.wikipedia:id/page_list_item_description']" +
-                    "[@text='{SUBSTRING}']";
+                    "[@text='{SUBSTRING}']",
+            SEARCH_RESULT_ELEMENT = "//*[@resource-id='org.wikipedia:id/page_list_item_title']";
 
     public SearchPageObject(AppiumDriver driver)
     {
@@ -65,4 +66,16 @@ public class SearchPageObject extends MainPageObject {
         this.waitForElementAndClick(By.xpath(search_result_xpath),
                 "Cannot find and click search result with substring " + substring, 10);
     }
+
+    public int getAmountOfFoundArticles()
+    {
+        this.waitForElementPresent(
+                By.xpath(SEARCH_RESULT_ELEMENT),
+                "Cannot find anything by request ",
+                15);
+
+        return this.getAmountOfElements(By.xpath(SEARCH_RESULT_ELEMENT));
+    }
+
+
 }

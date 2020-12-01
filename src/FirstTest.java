@@ -9,16 +9,14 @@ public class FirstTest extends CoreTestsCase {
 
     private MainPageObject MainPageObject;
 
-    protected void setUp() throws Exception
-    {
+    protected void setUp() throws Exception {
         super.setUp();
 
         MainPageObject = new MainPageObject(driver);
     }
 
     @Test
-    public void testSearch()
-    {
+    public void testSearch() {
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
         SearchPageObject.initSearchInput();
@@ -27,8 +25,7 @@ public class FirstTest extends CoreTestsCase {
     }
 
     @Test
-    public void testCancelSearch()
-    {
+    public void testCancelSearch() {
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
         SearchPageObject.initSearchInput();
@@ -38,8 +35,7 @@ public class FirstTest extends CoreTestsCase {
     }
 
     @Test
-    public void testCompareArticleTitle()
-    {
+    public void testCompareArticleTitle() {
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
         SearchPageObject.initSearchInput();
@@ -57,8 +53,7 @@ public class FirstTest extends CoreTestsCase {
     }
 
     @Test
-    public void testSwipeArticle()
-    {
+    public void testSwipeArticle() {
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
         SearchPageObject.initSearchInput();
@@ -71,8 +66,7 @@ public class FirstTest extends CoreTestsCase {
     }
 
     @Test
-    public void testSaveFirstArticleToMyList()
-    {
+    public void testSaveFirstArticleToMyList() {
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
         SearchPageObject.initSearchInput();
@@ -96,11 +90,27 @@ public class FirstTest extends CoreTestsCase {
         MyListsPageObject.swipeByArticleToDelete(article_title);
     }
 
-    protected void tearDown throws Exception
-    {
-        super.tearDown();
+    @Test
+    public void testAmountOfNotEmptySearch() throws Exception {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
-        MainPageObject = new MainPageObject(driver);
+        SearchPageObject.initSearchInput();
+        String search_line = "Linkin Park Diskography";
+        SearchPageObject.typeSearchLine(search_line);
+        int amount_of_search_results = SearchPageObject.getAmountOfFoundArticles();
+
+        Assert.assertTrue(
+                "We found too few results",
+                amount_of_search_results > 0
+        );
     }
 
-}
+        protected void tearDown () throws Exception
+        {
+            super.tearDown();
+
+            MainPageObject = new MainPageObject(driver);
+        }
+    }
+
+
