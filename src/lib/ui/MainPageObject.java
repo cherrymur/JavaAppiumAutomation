@@ -6,7 +6,6 @@ import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -146,21 +145,6 @@ public class MainPageObject {
         return element.getAttribute(attribute);
     }
 
-    public void RotateLandscape()
-    {
-        driver.rotate(ScreenOrientation.LANDSCAPE);
-    }
-
-    public void RotatePORTRAIT()
-    {
-        driver.rotate(ScreenOrientation.PORTRAIT);
-    }
-
-    public void runAppInBackground()
-    {
-        driver.runAppInBackground(20);
-    }
-
     public WebElement assertElementPresent(By by, String error_message) {
         WebDriverWait wait = new WebDriverWait(driver, 0);
         wait.withMessage(error_message + "\n");
@@ -172,9 +156,6 @@ public class MainPageObject {
     public boolean IsNotPresent(By by) {
         return getAmountOfElements(by) == 0;
     }
-    public void RotateResetBeforeTest(By by){
-        if (IsNotPresent(by)){
-            RotatePORTRAIT();
-        }
-    }
+
 }
+

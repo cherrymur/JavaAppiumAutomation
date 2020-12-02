@@ -65,58 +65,78 @@ public class FirstTest extends CoreTestsCase {
 //        ArticlePageObject.waitForTitleElement();
 //        ArticlePageObject.swipeToFooter();
 //    }
+//
+//    @Test
+//    public void testSaveFirstArticleToMyList() {
+//        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+//
+//        SearchPageObject.initSearchInput();
+//        SearchPageObject.typeSearchLine("Appium");
+//        SearchPageObject.clickByArticleWithSubstring("Appium");
+//
+//        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
+//        ArticlePageObject.waitForTitleElement();
+//
+//        String article_title = ArticlePageObject.getArticleTitle();
+//        String name_of_folder = "My list";
+//
+//        ArticlePageObject.addArticleToMyList(name_of_folder);
+//        ArticlePageObject.closeArticle();
+//
+//        NavigationUI NavigationUI = new NavigationUI(driver);
+//        NavigationUI.OpenMyLists();
+//
+//        MyListsPageObject MyListsPageObject = new MyListsPageObject(driver);
+//        MyListsPageObject.openFolderByName(name_of_folder);
+//        MyListsPageObject.swipeByArticleToDelete(article_title);
+//    }
 
     @Test
-    public void testSaveFirstArticleToMyList() {
+    public void testChangeScreenOrientationOnSearchResults() throws Exception
+    {
         SearchPageObject SearchPageObject = new SearchPageObject(driver);
 
         SearchPageObject.initSearchInput();
-        SearchPageObject.typeSearchLine("Appium");
-        SearchPageObject.clickByArticleWithSubstring("Appium");
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
 
         ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
-        ArticlePageObject.waitForTitleElement();
+        String title_before_landscape_rotation = ArticlePageObject.getArticleTitle();
 
-        String article_title = ArticlePageObject.getArticleTitle();
-        String name_of_folder = "My list";
+        this.screenRotateLandscape();
 
-        ArticlePageObject.addArticleToMyList(name_of_folder);
-        ArticlePageObject.closeArticle();
+        String title_after_landscape_rotation = ArticlePageObject.getArticleTitle();
 
-        NavigationUI NavigationUI = new NavigationUI(driver);
-        NavigationUI.OpenMyLists();
+        Assert.assertEquals(
+                "Article title have been changed after landscape screen rotation",
+                title_before_landscape_rotation,
+                title_after_landscape_rotation
+        );
 
-        MyListsPageObject MyListsPageObject = new MyListsPageObject(driver);
-        MyListsPageObject.openFolderByName(name_of_folder);
-        MyListsPageObject.swipeByArticleToDelete(article_title);
+        this.screenRotatePORTRAIT();
+
+        String title_after_portrait_rotation = ArticlePageObject.getArticleTitle();
+
+        Assert.assertEquals(
+                "Article title have been changed after portrait screen rotation",
+                title_before_landscape_rotation,
+                title_after_portrait_rotation);
     }
 
-//    @Test
-//    public void testAmountOfNotEmptySearch() throws Exception {
-//        SearchPageObject SearchPageObject = new SearchPageObject(driver);
-//
-//        SearchPageObject.initSearchInput();
-//        String search_line = "Linkin Park Diskography";
-//        SearchPageObject.typeSearchLine(search_line);
-//        int amount_of_search_results = SearchPageObject.getAmountOfFoundArticles();
-//
-//        Assert.assertTrue(
-//                "We found too few results",
-//                amount_of_search_results > 0
-//        );
-//    }
-//
-//    @Test
-//    public void testAmountOfEmptySearch() throws Exception
-//    {
-//        SearchPageObject SearchPageObject = new SearchPageObject(driver);
-//
-//        SearchPageObject.initSearchInput();
-//        String search_line = "zxcvasdfqwer";
-//        SearchPageObject.typeSearchLine(search_line);
-//        SearchPageObject.waitForEmptyResultsLabel();
-//        SearchPageObject.assertThereIsNoResultOfSearch();
-//}
+    @Test
+    public void testChangeSearchArticleInBackround() throws Exception {
+
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.waitForSearchResults("Object-oriented programming language");
+
+        this.runAppInBackground(20);
+
+        SearchPageObject.waitForSearchResults("Object-oriented programming language");
+    }
+
     protected void tearDown () throws Exception
     {
         super.tearDown();
