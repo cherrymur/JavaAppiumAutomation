@@ -35,14 +35,14 @@ public class MyListsPageObject extends MainPageObject{
 
     public void waitForArticleToAppearByTitle(String article_title)
     {
-        String article_xpath = getFolderXpathByName(article_title);
+        String article_xpath = getSavedArticleXpathByTitle(article_title);
         this.waitForElementPresent(By.xpath(article_xpath),
                 "Saved article is absent with title " + article_title, 5);
     }
 
     public void waitForArticleToDisappearByTitle(String article_title)
     {
-        String article_xpath = getFolderXpathByName(article_title);
+        String article_xpath = getSavedArticleXpathByTitle(article_title);
         this.waitForElementNotPresent(By.xpath(article_xpath),
                 "Saved article is still present with title" + article_title, 5);
     }
@@ -50,7 +50,7 @@ public class MyListsPageObject extends MainPageObject{
     public void swipeByArticleToDelete(String article_title)
     {
         this.waitForArticleToAppearByTitle(article_title);
-        String article_xpath = getFolderXpathByName(article_title);
+        String article_xpath = getSavedArticleXpathByTitle(article_title);
         this.swipeToTheLeftElement(
                 By.xpath(article_xpath),
                 "Cannot find saved article"

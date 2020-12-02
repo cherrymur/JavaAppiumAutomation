@@ -12,7 +12,7 @@ public class NavigationUI extends MainPageObject{
         super(driver);
     }
 
-    public void OpenMyLists()
+    public void openMyLists()
     {
         this.waitForElementAndClick(
                 By.xpath(OPTION_MyLists_BUTTON),

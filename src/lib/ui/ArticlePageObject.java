@@ -78,4 +78,16 @@ public class ArticlePageObject extends MainPageObject {
                 5);
     }
 
+    public void assertTitleHasText(String article_title)
+    {
+        assertElementHasText(
+                By.id(TITLE),
+                article_title,
+                "The article '" + article_title + "' is not opened");
+    }
+
+    public void assertArticleTitlePresent()
+    {
+        this.assertElementPresent(By.xpath(TITLE),"The article has no title");
+    }
 }

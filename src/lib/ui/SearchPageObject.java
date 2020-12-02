@@ -11,7 +11,7 @@ public class SearchPageObject extends MainPageObject {
         SEARCH_CANCEL_BUTTON = "org.wikipedia:id/search_close_btn",
         SEARCH_RESULT = "//*[@resource-id='org.wikipedia:id/page_list_item_container']" +
                 "//*[@text='{SUBSTRING}']",
-        SEARCH_RESULT_ELEMENT = "//*[@resource-id='org.wikipedia:id/page_list_item_title']",
+            SEARCH_RESULT_ELEMENT = "//*[@resource-id='org.wikipedia:id/page_list_item_title']",
         SEARCH_EMPTY_RESULT_ELEMENT = "//*[@resource-id='org.wikipedia:id/search_empty_text'][@text='No results found']";
 
     public SearchPageObject(AppiumDriver driver)
@@ -86,6 +86,13 @@ public class SearchPageObject extends MainPageObject {
                 15);
     }
 
+    public void checkSearchInputInEachElement(String substring)
+    {
+        this.assertElementsHaveText(
+                By.xpath(SEARCH_RESULT_ELEMENT),
+                substring,
+                substring + " is not in each element");
+    }
     public void assertThereIsNoResultOfSearch()
     {
         this.assertElementNotPresent(By.xpath(SEARCH_RESULT_ELEMENT),

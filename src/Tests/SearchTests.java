@@ -51,4 +51,13 @@ public class SearchTests extends CoreTestsCase
         SearchPageObject.assertThereIsNoResultOfSearch();
     }
 
+    @Test
+    public void testEachSearchResult() throws Exception {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+
+        SearchPageObject.checkSearchInputInEachElement("Java");
+    }
 }

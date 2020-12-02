@@ -134,7 +134,7 @@ public class MainPageObject {
     public void assertElementNotPresent(By by, String error_message) {
         int amount_of_elements = getAmountOfElements(by);
         if (amount_of_elements > 0) {
-            String default_message = "An element '" + by.toString() + "' supposed to be not present";
+            String default_message = "An element '" + by.toString() + "' supposed to be present";
             throw new AssertionError(default_message + " " + error_message);
         }
     }
@@ -145,12 +145,12 @@ public class MainPageObject {
         return element.getAttribute(attribute);
     }
 
-    public WebElement assertElementPresent(By by, String error_message) {
-        WebDriverWait wait = new WebDriverWait(driver, 0);
-        wait.withMessage(error_message + "\n");
-        return wait.until(
-                ExpectedConditions.presenceOfElementLocated(by)
-        );
+    public void assertElementPresent(By by, String error_message) {
+        int amount_of_elements = getAmountOfElements(by);
+        if (amount_of_elements < 1) {
+            String default_message = "An element '" + by.toString() + "' supposed to be not present";
+            throw new AssertionError(default_message + " " + error_message);
+        }
     }
 
     public boolean IsNotPresent(By by) {

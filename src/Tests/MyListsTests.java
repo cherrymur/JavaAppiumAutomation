@@ -27,10 +27,58 @@ public class MyListsTests extends CoreTestsCase
         ArticlePageObject.closeArticle();
 
         NavigationUI NavigationUI = new NavigationUI(driver);
-        NavigationUI.OpenMyLists();
+        NavigationUI.openMyLists();
 
         MyListsPageObject MyListsPageObject = new MyListsPageObject(driver);
         MyListsPageObject.openFolderByName(name_of_folder);
         MyListsPageObject.swipeByArticleToDelete(article_title);
     }
+
+    @Test
+    public void testSaveTwoArticlesAndDeleteOneOfThem() {
+        SearchPageObject SearchPageObject = new SearchPageObject(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Appium");
+        SearchPageObject.clickByArticleWithSubstring("Appium");
+
+        ArticlePageObject ArticlePageObject = new ArticlePageObject(driver);
+        ArticlePageObject.waitForTitleElement();
+
+        String first_article_title = ArticlePageObject.getArticleTitle();
+        String name_of_folder = "My list";
+
+        ArticlePageObject.addArticleToMyList(name_of_folder);
+        ArticlePageObject.closeArticle();
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+
+        ArticlePageObject.waitForTitleElement();
+
+        String second_article_title = ArticlePageObject.getArticleTitle();
+
+        ArticlePageObject.addArticleToMyList(name_of_folder);
+        ArticlePageObject.closeArticle();
+
+        NavigationUI NavigationUI = new NavigationUI(driver);
+        NavigationUI.openMyLists();
+
+        MyListsPageObject MyListsPageObject = new MyListsPageObject(driver);
+        MyListsPageObject.openFolderByName(name_of_folder);
+        MyListsPageObject.swipeByArticleToDelete(first_article_title);
+
+        int amount_of_search_results = SearchPageObject.getAmountOfFoundArticles();
+
+        assertTrue(
+                "We found not one result",
+                amount_of_search_results == 1
+        );
+
+        SearchPageObject.clickByArticleWithSubstring(second_article_title);
+
+        ArticlePageObject.assertTitleHasText(second_article_title);
+    }
 }
+
