@@ -7,11 +7,12 @@ public class SearchPageObject extends MainPageObject {
 
     private static final String
         SEARCH_INIT_ELEMENT = "//*[contains(@text, 'Search Wikipedia')]",
-            SEARCH_INPUT = "//*[contains(@text, 'Search…')]",
-            SEARCH_CANCEL_BUTTON = "org.wikipedia:id/search_close_btn",
-            SEARCH_RESULT = "//*[@resource-id='org.wikipedia:id/page_list_item_description']" +
-                    "[@text='{SUBSTRING}']",
-            SEARCH_RESULT_ELEMENT = "//*[@resource-id='org.wikipedia:id/page_list_item_title']";
+        SEARCH_INPUT = "//*[contains(@text, 'Search…')]",
+        SEARCH_CANCEL_BUTTON = "org.wikipedia:id/search_close_btn",
+        SEARCH_RESULT = "//*[@resource-id='org.wikipedia:id/page_list_item_container']" +
+                "//*[@text='{SUBSTRING}']",
+        SEARCH_RESULT_ELEMENT = "//*[@resource-id='org.wikipedia:id/page_list_item_title']",
+        SEARCH_EMPTY_RESULT_ELEMENT = "//*[@resource-id='org.wikipedia:id/search_empty_text'][@text='No results found']";
 
     public SearchPageObject(AppiumDriver driver)
     {
@@ -21,7 +22,7 @@ public class SearchPageObject extends MainPageObject {
     /*TEMPLATES METHODS */
     private static String getResultSearchElement(String substring)
     {
-        return SEARCH_RESULT.replace("{SUBSTRING", substring);
+        return SEARCH_RESULT.replace("{SUBSTRING}", substring);
     }
     /*TEMPLATES METHODS */
 
@@ -56,7 +57,8 @@ public class SearchPageObject extends MainPageObject {
 
     public void waitForSearchResults(String substring)
     {
-        this.waitForElementPresent(By.xpath(SEARCH_RESULT),
+        String search_result_xpath = getResultSearchElement(substring);
+        this.waitForElementPresent(By.xpath(search_result_xpath),
                 "Cannot find search result");
     }
 
@@ -77,5 +79,16 @@ public class SearchPageObject extends MainPageObject {
         return this.getAmountOfElements(By.xpath(SEARCH_RESULT_ELEMENT));
     }
 
+    public void waitForEmptyResultsLabel()
+    {
+        this.waitForElementPresent(By.xpath(SEARCH_EMPTY_RESULT_ELEMENT),
+                "Cannot find empty result element",
+                15);
+    }
 
+    public void assertThereIsNoResultOfSearch()
+    {
+        this.assertElementNotPresent(By.xpath(SEARCH_RESULT_ELEMENT),
+                "We supposed not to find any results");
+    }
 }

@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 public class MyListsPageObject extends MainPageObject{
 
     public static final String
-            FOLDER_BY_NAME_TPL = "//*[@resource-id='org.wikipedia:id/item_title'][@text='{FOLDER_NAME}']",
+            FOLDER_BY_NAME_TPL = "//*[@text='{FOLDER_NAME}']",
             ARTICLE_BY_NAME_TPL = "//*[@text='{TITLE}']";
 
     private static String getFolderXpathByName(String name_of_folder)
@@ -37,7 +37,7 @@ public class MyListsPageObject extends MainPageObject{
     {
         String article_xpath = getFolderXpathByName(article_title);
         this.waitForElementPresent(By.xpath(article_xpath),
-                "Saved article is absent with title" + article_title, 5);
+                "Saved article is absent with title " + article_title, 5);
     }
 
     public void waitForArticleToDisappearByTitle(String article_title)
@@ -50,7 +50,7 @@ public class MyListsPageObject extends MainPageObject{
     public void swipeByArticleToDelete(String article_title)
     {
         this.waitForArticleToAppearByTitle(article_title);
-        String article_xpath = getFolderXpathByName((article_title));
+        String article_xpath = getFolderXpathByName(article_title);
         this.swipeToTheLeftElement(
                 By.xpath(article_xpath),
                 "Cannot find saved article"
