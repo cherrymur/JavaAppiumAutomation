@@ -1,6 +1,7 @@
 package lib;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import junit.framework.TestCase;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -22,8 +23,8 @@ public class CoreTestsCase extends TestCase {
 
 
         capabilities.setCapability("orientation", "PORTRAIT");
-        driver = new AndroidDriver(new URL(AppiumUrl), capabilities);
-//        this.screenRotatePORTRAIT();
+        driver = this.getPlatformDriver(capabilities);
+
     }
 
     @Override
@@ -77,5 +78,19 @@ public class CoreTestsCase extends TestCase {
         }
 
         return capabilities;
+    }
+
+    private AppiumDriver getPlatformDriver(DesiredCapabilities capabilities) throws Exception {
+        String platform = System.getenv("PLATFORM");
+
+        if (platform.equals(PLATFORM_ANDROID)) {
+            driver = new AndroidDriver(new URL(AppiumUrl), capabilities);
+        } else if (platform.equals(PLATFORM_IOS)) {
+            driver = new IOSDriver(new URL(AppiumUrl), capabilities);
+        } else {
+            throw new Exception("Cannot get run platform from env variable. Platform value " + platform);
+        }
+
+        return driver;
     }
 }
