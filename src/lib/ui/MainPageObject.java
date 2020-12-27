@@ -9,6 +9,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import lib.Platform;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -133,6 +134,22 @@ public class MainPageObject {
         return element_location_by_y < screen_size_by_y;
     }
 
+    public void clickElementToTheRightUpperCorner(String locator, String error_message) {
+        WebElement element = this.waitForElementPresent(locator + "/..", error_message);
+        // we go to the element upper than we founded with locator
+        int right_x = element.getLocation().getX();
+        int upper_y = element.getLocation().getY();
+        int lower_y = upper_y + element.getSize().getHeight();
+        int middle_y = (upper_y + lower_y) / 2;
+        int width = element.getSize().getWidth();
+
+        int point_to_click_x = (right_x + width) -3; //less for 3 px
+        int point_to_click_y = middle_y;
+
+        TouchAction action = new TouchAction(driver);
+        action.tap(point_to_click_x, point_to_click_y).perform();
+    }
+
     public void swipeToTheLeftElement(String locator, String error_message){
         WebElement element = waitForElementPresent(locator, "Cannot find element by swipe the element. \n"
                 + error_message, 5);
@@ -143,11 +160,16 @@ public class MainPageObject {
         int middle_y = (upper_y + lower_y)/2;
 
         TouchAction action = new TouchAction(driver);
-        action.press(right_x, middle_y)
-                .waitAction(400)
-                .moveTo(left_x, middle_y)
-                .release()
-                .perform();
+        action.press(right_x, middle_y);
+        action.waitAction(400);
+        if (Platform.getInstance().isAndroid()){
+            action.moveTo(left_x, middle_y);
+        } else {
+            int offset_x = (-1 * element.getSize().getWidth());
+            action.moveTo(offset_x, 0);
+        }
+        action.release();
+        action.perform();
     }
 
     public int getAmountOfElements(String locator)

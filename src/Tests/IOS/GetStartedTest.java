@@ -1,4 +1,4 @@
-package Tests;
+package Tests.IOS;
 
 import lib.CoreTestsCase;
 import lib.Platform;
