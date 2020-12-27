@@ -1,21 +1,17 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
 
-public class SearchPageObject extends MainPageObject {
+abstract public class SearchPageObject extends MainPageObject {
 
-    private static final String
-        SEARCH_INIT_ELEMENT = "xpath://*[contains(@text, 'Search Wikipedia')]",
-        SEARCH_INPUT = "xpath://*[contains(@text, 'Search…')]",
-        SEARCH_CANCEL_BUTTON = "id:org.wikipedia:id/search_close_btn",
-        SEARCH_RESULT = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_container']" +
-                "//*[@text='{SUBSTRING}']",
-            SEARCH_RESULT_ELEMENT = "xpath://*[@resource-id='org.wikipedia:id/page_list_item_title']",
-            SEARCH_RESULT_ELEMENT_by_TITLE_AND_DESCRIPTION = "xpath://[@resource-id='org.wikipedia:id/page_list_item_container']" +
-                    "/[@resource-id='org.wikipedia:id/page_list_item_title'][@text='{TITLE}']/" +
-                    "[@resource-id='org.wikipedia:id/page_list_item_description'][@text='{DESCRIPTION}']",
-        SEARCH_EMPTY_RESULT_ELEMENT = "xpath://*[@resource-id='org.wikipedia:id/search_empty_text'][@text='No results found']";
+    protected static String // deleted final - we should can change it:)
+        SEARCH_INIT_ELEMENT,
+        SEARCH_INPUT,
+        SEARCH_CANCEL_BUTTON,
+        SEARCH_RESULT_BY_SUBSTRING_TPL,
+        SEARCH_RESULT_ELEMENT,
+        SEARCH_RESULT_ELEMENT_by_TITLE_AND_DESCRIPTION,
+        SEARCH_EMPTY_RESULT_ELEMENT;
 
     public SearchPageObject(AppiumDriver driver)
     {
@@ -25,7 +21,7 @@ public class SearchPageObject extends MainPageObject {
     /*TEMPLATES METHODS */
     private static String getResultSearchElement(String substring)
     {
-        return SEARCH_RESULT.replace("{SUBSTRING}", substring);
+        return SEARCH_RESULT_BY_SUBSTRING_TPL.replace("{SUBSTRING}", substring);
     }
 
     private static String getResultSearchElementByTitleAndDescription(String substring_title, String substring_description)
