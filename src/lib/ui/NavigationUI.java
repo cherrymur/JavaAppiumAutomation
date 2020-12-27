@@ -15,7 +15,7 @@ public class NavigationUI extends MainPageObject{
     public void openMyLists()
     {
         this.waitForElementAndClick(
-                By.xpath(OPTION_MyLists_BUTTON),
+                OPTION_MyLists_BUTTON,
                 "We have a trouble to find the 'My lists' element",
                 10);
     }
