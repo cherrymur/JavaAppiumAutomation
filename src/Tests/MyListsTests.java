@@ -59,7 +59,12 @@ public class MyListsTests extends CoreTestsCase
 
         String first_article_title = ArticlePageObject.getArticleTitle();
 
-        ArticlePageObject.addArticleToMyList(name_of_folder);
+        if (Platform.getInstance().isAndroid()) {
+            ArticlePageObject.addArticleToMyList(name_of_folder);
+        } else {
+            ArticlePageObject.addArticlesToMySaved();
+        }
+
         ArticlePageObject.closeArticle();
 
         SearchPageObject.initSearchInput();
@@ -70,14 +75,23 @@ public class MyListsTests extends CoreTestsCase
 
         String second_article_title = ArticlePageObject.getArticleTitle();
 
-        ArticlePageObject.addArticleToMyList(name_of_folder);
+        if (Platform.getInstance().isAndroid()) {
+            ArticlePageObject.addArticleToMyList(name_of_folder);
+        } else {
+            ArticlePageObject.addArticlesToMySaved();
+        }
+
         ArticlePageObject.closeArticle();
 
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
         NavigationUI.openMyLists();
 
         MyListsPageObject MyListsPageObject = MyListsPageObjectFactory.get(driver);
-        MyListsPageObject.openFolderByName(name_of_folder);
+
+        if (Platform.getInstance().isAndroid()) {
+            MyListsPageObject.openFolderByName(name_of_folder);
+        }
+
         MyListsPageObject.swipeByArticleToDelete(first_article_title);
 
         int amount_of_search_results = SearchPageObject.getAmountOfFoundArticles();

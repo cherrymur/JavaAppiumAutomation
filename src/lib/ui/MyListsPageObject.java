@@ -62,6 +62,7 @@ abstract public class MyListsPageObject extends MainPageObject{
         if (Platform.getInstance().isIOS()) {
             this.clickElementToTheRightUpperCorner(article_xpath, "Cannot find saved article");
         }
+
         this.waitForArticleToDisappearByTitle(article_title);
     }
 }
