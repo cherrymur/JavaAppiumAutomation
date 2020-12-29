@@ -7,15 +7,15 @@ import org.junit.Test;
 
 public class SearchTests extends CoreTestsCase
 {
-//    @Test
-//    public void testSearch() {
-//        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
-//
-//        SearchPageObject.initSearchInput();
-//        SearchPageObject.typeSearchLine("Java");
-//        SearchPageObject.waitForSearchResults("Object-oriented programming language");
-//    }
-//
+    @Test
+    public void testSearch() {
+        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
+
+        SearchPageObject.initSearchInput();
+        SearchPageObject.typeSearchLine("Java");
+        SearchPageObject.waitForSearchResults("Object-oriented programming language");
+    }
+
 //    @Test
 //    public void testCancelSearch() {
 //        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
@@ -61,16 +61,16 @@ public class SearchTests extends CoreTestsCase
 //
 //        SearchPageObject.checkSearchInputInEachElement("Java");
 //    }
-
-    @Test
-    public void testSearchResultByTitleAndDescription() {
-        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
-
-        SearchPageObject.initSearchInput();
-        SearchPageObject.typeSearchLine("Java");
-
-        SearchPageObject.waitForElementByTitleAndDescription("Java", "Island of Indonesia");
-        SearchPageObject.waitForElementByTitleAndDescription("JavaScript", "Programming language");
-        SearchPageObject.waitForElementByTitleAndDescription("Java (programming language)", "Object-oriented programming language");
-    }
+//
+//    @Test
+//    public void testSearchResultByTitleAndDescription() {
+//        SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
+//
+//        SearchPageObject.initSearchInput();
+//        SearchPageObject.typeSearchLine("Java");
+//
+//        SearchPageObject.waitForElementByTitleAndDescription("Java", "Island of Indonesia");
+//        SearchPageObject.waitForElementByTitleAndDescription("JavaScript", "Programming language");
+//        SearchPageObject.waitForElementByTitleAndDescription("Java (programming language)", "Object-oriented programming language");
+//    }
 }
